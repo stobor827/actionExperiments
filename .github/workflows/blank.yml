@@ -28,7 +28,7 @@ jobs:
       
       - name: RTest    
         run: |
-          sudo apt-get install r-cran-todyverse
+          sudo apt-get install r-cran-tidyverse
           Rscript 'covid cubic.R'
 
       # Runs a set of commands using the runners shell
