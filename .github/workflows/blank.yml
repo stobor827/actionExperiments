@@ -26,7 +26,7 @@ jobs:
           r-version: '3.5.3' # The R version to download (if necessary) and use.
           
       - name: RTest    
-        run: Rscript -e 'print("hello")'   
+        run: Rscript 'covid cubic.R'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
