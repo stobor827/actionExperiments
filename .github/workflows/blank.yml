@@ -33,6 +33,7 @@ jobs:
       - name: debug
         run: |
           echo "${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}"
+          Rscript -e '.libPaths()'
 
 
       # Runs a set of commands using the runners shell
