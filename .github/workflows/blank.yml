@@ -26,18 +26,9 @@ jobs:
           r-version: '3.5.3' # The R version to download (if necessary) and use.
       
       
-      #copied from  https://gist.github.com/jimbrig/b698aae7a4fcb2b195f4686082f17618
-      - name: Cache R packages
-        if: runner.os != 'Windows'
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-    
-          
       - name: RTest    
         run: |
-          Rscript -e 'install.packages("tidyverse")'
+          sudo apt-get install r-cran-todyverse
           Rscript 'covid cubic.R'
 
       # Runs a set of commands using the runners shell
