@@ -24,4 +24,5 @@ p = ggplot(data = a) +
  
   geom_vline( aes(xintercept=predDate), linetype="dotted") + 
   coord_cartesian(ylim=c(0,3500), xlim=c( min(a$date), plotEndDate))
+png( filename="out.png")
 print(p)
