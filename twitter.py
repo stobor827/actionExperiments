@@ -14,7 +14,10 @@ with open("ehsteve.png", mode='rb') as file: # b is important -> binary
 
 url = "https://upload.twitter.com/1.1/media/upload.json?media_category=tweet_image"
 r = twitter.post( url, files=dict(media=img))
+print(r.content)
 data = json.loads(r.content);
 
 url2 = 'https://api.twitter.com/1.1/statuses/update.json?status=%40thestobor hello from github2&in_reply_to_status_id=' + os.environ["latestTweet"] + '&media_ids=' + data["media_id_string"]
+print(url2)
 r2 = twitter.post(url2)
+print(r2.content)
