@@ -16,5 +16,5 @@ url = "https://upload.twitter.com/1.1/media/upload.json?media_category=tweet_ima
 r = twitter.post( url, files=dict(media=img))
 data = json.loads(r.content);
 
-url2 = 'https://api.twitter.com/1.1/statuses/update.json?status=%40thestobor hello from github&in_reply_to_status_id=' + os.environ["latest_id"] + '&media_ids=' + data["media_id_string"]
+url2 = 'https://api.twitter.com/1.1/statuses/update.json?status=%40thestobor hello from github&in_reply_to_status_id=' + os.environ["latestTweet"] + '&media_ids=' + data["media_id_string"]
 r2 = twitter.post(url2)
