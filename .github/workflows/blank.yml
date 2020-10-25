@@ -28,7 +28,7 @@ jobs:
           CONVERSATION_ID: "1320182216903872512"
         run: |
           echo "Looking for latest tweet in conversation $CONVERSATION_ID"
-          latestTweet=$(curl -s --request GET \
+          export latestTweet=$(curl -s --request GET \
            --url "https://api.twitter.com/2/tweets/search/recent?query=conversation_id:$CONVERSATION_ID&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id" \
            --header "Authorization: Bearer $BEARER_TOKEN" | jq '.meta.newest_id as $new | .data | map(select(.id==$new ))[0].id | tonumber')
           echo "latestTweetID: $latestTweet"
@@ -51,6 +51,7 @@ jobs:
           RESOURCE_KEY: ${{ secrets.RESOURCE_KEY }}
           RESOURCE_SECRET: ${{ secrets.RESOURCE_SECRET }}
         run: |
+          echo "latestTweet: $latestTweet"
           pip install requests_oauthlib
           python3 twitter.py
           
