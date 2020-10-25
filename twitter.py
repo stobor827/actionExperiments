@@ -8,7 +8,7 @@ twitter = OAuth1Session(    client_key=os.environ['CLIENT_KEY'],
                             resource_owner_secret=os.environ['RESOURCE_SECRET'] )
 
 
-with open("ehsteve.png", mode='rb') as file: # b is important -> binary
+with open("out.png", mode='rb') as file: # b is important -> binary
     img = file.read()
 
 
