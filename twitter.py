@@ -1,5 +1,6 @@
 from requests_oauthlib import OAuth1Session
 import json
+import os
 
 twitter = OAuth1Session(    client_key=os.environ['CLIENT_KEY'],
                             client_secret=os.environ['CLIENT_SECRET'],
