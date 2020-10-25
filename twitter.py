@@ -17,7 +17,8 @@ r = twitter.post( url, files=dict(media=img))
 print(r.content)
 data = json.loads(r.content);
 
-url2 = 'https://api.twitter.com/1.1/statuses/update.json?status=%40thestobor hello from github2&in_reply_to_status_id=' + os.environ["latestTweet"] + '&media_ids=' + data["media_id_string"]
+latestTweet = os.environ["latestTweet"].strip('\"')
+url2 = 'https://api.twitter.com/1.1/statuses/update.json?status=%40thestobor hello from github2&in_reply_to_status_id=' + latestTweet + '&media_ids=' + data["media_id_string"]
 print(url2)
 r2 = twitter.post(url2)
 print(r2.content)
