@@ -40,7 +40,9 @@ jobs:
      
      #I would prefer to use the ubuntu packages, but github actions preinstall v4, which is incompatible with the aptitiude versions
       - name: RTest
-        if: ${{ true }}    
+        if: ${{ true }}
+        env:
+          R_LIBS_USER: /home/runner/work/_temp/Library
         run: |
           sudo apt-get install -y libxml2-dev libcurl4-openssl-dev libssl-dev
           Rscript -e 'install.packages("tidyverse")'
