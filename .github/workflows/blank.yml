@@ -25,9 +25,9 @@ jobs:
       - name: GetLatestTweet
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-          CONVERSATION_ID: 1320182216903872512
+          CONVERSATION_ID: "1320182216903872512"
         run: |
-          echo "Looking for latest tweet in converstaion $CONVERSATION_ID"
+          echo "Looking for latest tweet in conversation $CONVERSATION_ID"
           latestTweet=$(curl -s --request GET \
            --url "https://api.twitter.com/2/tweets/search/recent?query=conversation_id:$CONVERSATION_ID&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id" \
            --header "Authorization: Bearer $BEARER_TOKEN" | jq '.meta.newest_id as $new | .data | map(select(.id==$new ))[0].id | tonumber')
@@ -44,6 +44,11 @@ jobs:
           Rscript 'covid cubic.R'
 
       - name: Tweet
+        env:
+          CLIENT_KEY: ${{ secrets.CLIENT_KEY }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          RESOURCE_KEY: ${{ secrets.RESOURCE_KEY }}
+          RESOURCE_SECRET: ${{ secrets.RESOURCE_SECRET }}
         run: |
           pip install requests_oauthlib
           python3 twitter.py
