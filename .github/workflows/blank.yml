@@ -40,14 +40,13 @@ jobs:
      
      #I would prefer to use the ubuntu packages, but github actions preinstall v4, which is incompatible with the aptitiude versions
       - name: RTest
+        env:
+          R_LIBS_USER: /home/runner/work/_temp/Library
         if: ${{ true }}
-        # touch ~/.Renviron
-          # echo "R_LIBS_USER=~/runner/work/_temp/Library" >> ~/.Renviron
-          
         run: |
           sudo apt-get install -y libxml2-dev libcurl4-openssl-dev libssl-dev
-          mkdir -p /home/runner/work/_temp/Library
-          Rscript -e 'install.packages("tidyverse", lib="/home/runner/work/_temp/Library")'
+          mkdir -p $R_LIBS_USER
+          Rscript -e 'install.packages("tidyverse", lib="$R_LIBS_USER")'
           Rscript 'covid cubic.R'
 
       - name: Tweet
