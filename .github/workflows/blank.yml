@@ -25,10 +25,11 @@ jobs:
       - name: GetLatestTweet
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          CONVERSATION_ID: 1320182216903872512
         run: |
-          echo "BEARER_TOKEN $BEARER_TOKEN"
+          echo "Looking for latest tweet in converstaion $CONVERSATION_ID"
           latestTweet=$(curl -s --request GET \
-           --url 'https://api.twitter.com/2/tweets/search/recent?query=conversation_id:1320182216903872512&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id' \
+           --url "https://api.twitter.com/2/tweets/search/recent?query=conversation_id:$CONVERSATION_ID&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id" \
            --header "Authorization: Bearer $BEARER_TOKEN" | jq '.meta.newest_id as $new | .data | map(select(.id==$new ))[0].id | tonumber')
           echo "latestTweetID: $latestTweet"
      
@@ -42,18 +43,10 @@ jobs:
           Rscript -e 'install.packages("tidyverse")'
           Rscript 'covid cubic.R'
 
-#      - name: debug
-#        run: |
-#          echo "${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}"
-#          Rscript -e '.libPaths()'
-#          echo "${{env.R_LIBS_USER }}"
-
-
- #     # Runs a set of commands using the runners shell
- #     - name: Run a multi-line script
- #       run: |
- #         echo "Add other actions to build," >> test.txt
- #         echo "test, and deploy your project." >> test.txt
+      - name: Tweet
+        run: |
+          pip install requests_oauthlib
+          python3 twitter.py
           
           
       - uses: actions/upload-artifact@v2
