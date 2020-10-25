@@ -21,11 +21,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
-     
-     
+
       - name: GetLatestTweet
         run: |
+          echo "BEARER_TOKEN $BEARER_TOKEN"
           latestTweet=$(curl -s --request GET \
            --url 'https://api.twitter.com/2/tweets/search/recent?query=conversation_id:1320182216903872512&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id' \
            --header "Authorization: Bearer $BEARER_TOKEN" | jq '.meta.newest_id as $new | .data | map(select(.id==$new ))[0].id | tonumber')
