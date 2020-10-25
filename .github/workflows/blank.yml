@@ -46,6 +46,7 @@ jobs:
           
         run: |
           sudo apt-get install -y libxml2-dev libcurl4-openssl-dev libssl-dev
+          mkdir -p /home/runner/work/_temp/Library
           Rscript -e 'install.packages("tidyverse", lib="/home/runner/work/_temp/Library")'
           Rscript 'covid cubic.R'
 
