@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-  - cron: "0 14 * * 2"
+  - cron: "0 19 * * 2"
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,7 +34,7 @@ jobs:
            --url "https://api.twitter.com/2/tweets/search/recent?query=conversation_id:$CONVERSATION_ID&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id" \
            --header "Authorization: Bearer $BEARER_TOKEN" | jq '.meta.newest_id as $new | .data | map(select(.id==$new ))[0].id')
           echo "latestTweetID: $latestTweet"
-          echo "::set-env name=latestTweet::$latestTweet"
+          echo "latestTweet=$latestTweet" >> $GITHUB_ENV
      
      #caching would be nice, but they evict after 7 days...
      
