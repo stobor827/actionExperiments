@@ -11,8 +11,8 @@ a  = read_csv( 'https://covidtracking.com/api/v1/us/daily.csv',col_types= cols(
 ))
 
 predDate = as.POSIXct("2020-05-05")
-startDate = as.POSIXct("2020-02-26")
-plotEndDate = as.POSIXct( "2020-12-31")
+startDate = as.POSIXct("2020-05-01")
+plotEndDate = as.POSIXct( "2021-04-01")
 
 b <- filter(a, date < predDate & date > startDate)
 p3 = lm( data=b, deathIncrease ~ poly(as.numeric(date),3) )
